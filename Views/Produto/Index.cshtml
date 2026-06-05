@@ -1,0 +1,14 @@
+<h2>Catálogo de Produtos</h2>
+<table border="1" cellpadding="8">
+  <tr><th>#</th><th>Nome</th><th>Preço</th></tr>
+  @for (int i = 0; i < ViewBag.Nomes.Count; i++)
+  {
+    var cor = ViewBag.Precos[i] < 100 ? "green" : "black";
+    <tr style="color:@cor">
+      <td>@(i + 1)</td>
+      <td>@ViewBag.Nomes[i]</td>
+      <td>R$ @ViewBag.Precos[i]</td>
+    </tr>
+  }
+</table>
+<p><strong>Total: @ViewBag.Nomes.Count produtos</strong></p>

@@ -1,0 +1,27 @@
+<h2>Boletim de Notas</h2>
+<table border="1" cellpadding="8">
+  <tr><th>Disciplina</th><th>Nota</th><th>Status</th><th>Conceito</th></tr>
+  @{ double soma = 0; }
+  @for (int i = 0; i < ViewBag.Disciplinas.Count; i++)
+  {
+    double nota = ViewBag.Notas[i];
+    soma += nota;
+    var status = nota >= 7 ? "Aprovado" : "Reprovado";
+    var cor = nota >= 7 ? "green" : "red";
+    string conceito;
+    if (nota >= 9) conceito = "A";
+    else if (nota >= 7) conceito = "B";
+    else if (nota >= 5) conceito = "C";
+    else conceito = "D";
+    <tr>
+      <td>@ViewBag.Disciplinas[i]</td>
+      <td>@nota</td>
+      <td style="color:@cor"><strong>@status</strong></td>
+      <td>@conceito</td>
+    </tr>
+  }
+  <tr>
+    <td colspan="3"><strong>Média Geral</strong></td>
+    <td><strong>@(soma / ViewBag.Notas.Count)</strong></td>
+  </tr>
+</table>
