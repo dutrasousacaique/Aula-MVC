@@ -1,0 +1,56 @@
+@model EnderecoModel
+<h2>Busca de Endereço por CEP</h2>
+
+<form asp-action="Buscar" method="post">
+    <div>
+        <label asp-for="CEP">CEP:</label>
+        <input asp-for="CEP" id="cep" maxlength="8" placeholder="Ex: 01310100" />
+        <button type="button" id="btnBuscar">Buscar CEP</button>
+        <span asp-validation-for="CEP" style="color:red"></span>
+    </div>
+    <br/>
+    <div>
+        <label asp-for="Logradouro">Logradouro:</label>
+        <input asp-for="Logradouro" id="logradouro" readonly />
+    </div>
+    <div>
+        <label asp-for="Bairro">Bairro:</label>
+        <input asp-for="Bairro" id="bairro" readonly />
+    </div>
+    <div>
+        <label asp-for="Cidade">Cidade:</label>
+        <input asp-for="Cidade" id="cidade" readonly />
+    </div>
+    <div>
+        <label asp-for="UF">UF:</label>
+        <input asp-for="UF" id="uf" readonly />
+    </div>
+    <br/>
+    <button type="submit">Confirmar</button>
+</form>
+
+<p id="erro" style="color:red"></p>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#btnBuscar").click(function () {
+        var cep = $("#cep").val().replace(/\D/g, '');
+        if (cep.length !== 8) {
+            $("#erro").text("CEP deve ter 8 dígitos.");
+            return;
+        }
+        $("#erro").text("");
+        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", function (data) {
+            if (data.erro) {
+                $("#erro").text("CEP não encontrado.");
+                return;
+            }
+            $("#logradouro").val(data.logradouro);
+            $("#bairro").val(data.bairro);
+            $("#cidade").val(data.localidade);
+            $("#uf").val(data.uf);
+        }).fail(function () {
+            $("#erro").text("Erro ao consultar o CEP.");
+        });
+    });
+</script>

@@ -1,0 +1,11 @@
+@model EnderecoModel
+<div style="background:#d4edda; padding:20px; border-radius:8px;">
+    <h2 style="color:green">✅ Endereço confirmado!</h2>
+    <p><strong>CEP:</strong> @Model.CEP</p>
+    <p><strong>Logradouro:</strong> @Model.Logradouro</p>
+    <p><strong>Bairro:</strong> @Model.Bairro</p>
+    <p><strong>Cidade:</strong> @Model.Cidade</p>
+    <p><strong>UF:</strong> @Model.UF</p>
+</div>
+<br/>
+<a href="/Endereco/Buscar">Buscar outro CEP</a>
