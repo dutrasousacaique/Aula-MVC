@@ -1,0 +1,27 @@
+@model ImcModel
+<h2>Calculadora de IMC</h2>
+
+<form asp-action="Calcular" method="post">
+    <div>
+        <label asp-for="Peso">Peso (kg):</label>
+        <input asp-for="Peso" type="number" step="0.1" />
+        <span asp-validation-for="Peso" style="color:red"></span>
+    </div>
+    <div>
+        <label asp-for="Altura">Altura (m):</label>
+        <input asp-for="Altura" type="number" step="0.01" />
+        <span asp-validation-for="Altura" style="color:red"></span>
+    </div>
+    <br/>
+    <button type="submit">Calcular IMC</button>
+</form>
+
+@if (Model.Resultado != null)
+{
+    var cor = Model.Classificacao == "Peso normal" ? "green" : "orange";
+    <div style="margin-top:20px; padding:15px; background:#f0f0f0; border-radius:8px;">
+        <h3>Resultado:</h3>
+        <p><strong>IMC:</strong> @Model.Resultado.Value.ToString("F2")</p>
+        <p style="color:@cor"><strong>Classificação:</strong> @Model.Classificacao</p>
+    </div>
+}
