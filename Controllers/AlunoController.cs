@@ -1,22 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace PerfilAlunoMVC.Controllers
+public class AlunoController : Controller
 {
-    public class AlunoController : Controller
+    [HttpGet]
+    public IActionResult Cadastrar()
     {
-        public IActionResult Index()
-        {
-            ViewBag.Nome = "João Silva";
-            ViewBag.Curso = "Desenvolvimento Web";
-            ViewBag.Semestre = 3;
-
-            return View();
-        }
-
-        public IActionResult Detalhes(int id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
+        return View();
     }
-}  
+
+    [HttpPost]
+    public IActionResult Cadastrar(Aluno aluno)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(aluno);
+        }
+        return View("Confirmacao", aluno);
+    }
+}
